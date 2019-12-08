@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!-- author: Melih Safa Celik - Assignment for Geomatics Engineering 101 class-->
+<html style="background-color:#B0FF01">
+	<title>Term Project</title>
+
+	<head>
+		<h1 id="headbord" align="middle" style="background-color:#848484;border-radius:20px;border-radius:25px;margin-left:200px;margin-right:200px;"> GEO101E CRN: 12301 Introduction to Information Technologies Term Project</h1>
+	</head>
+
+	<script>
+	
+		function func1(choise){ //Calculator of B coordinates
+			var xa=parseFloat(document.getElementById('xa').value);
+			var ya=parseFloat(document.getElementById('ya').value);
+			var sAB=parseFloat(document.getElementById('sAB').value);
+			var tAB=parseFloat(document.getElementById('tAB').value);
+			var grad2rad;
+			grad2rad = tAB * Math.PI / 200;
+			var r1;
+			var r2;
+			var delta_y = sAB*Math.sin(grad2rad);
+			var delta_x = sAB*Math.cos(grad2rad);
+			var c=choise;
+
+			switch(c)
+				{
+				case 'ptB':
+					r1= xa + delta_x;
+					r2 = ya + delta_y;
+					break;
+				default:
+					break;
+						
+				}
+			document.getElementById('xB').value=r1;
+			document.getElementById('yB').value=r2;
+		}
+		
+		function tABcalc(choise2){ //tAB calculator
+			var xa2=parseFloat(document.getElementById('xa2').value);
+			var ya2=parseFloat(document.getElementById('ya2').value);
+			var xb2=parseFloat(document.getElementById('xb2').value);
+			var yb2=parseFloat(document.getElementById('yb2').value);
+			var tAB2;
+			var rad_tAB;
+			var grad_tAB;
+			var delta_y2 = Math.abs(yb2-ya2);
+			var delta_x2 = Math.abs(xb2-xa2);
+			
+			var c=choise2;
+			
+			switch(c)
+				{
+				case 'tAB2':
+					rad_tAB = Math.atan(delta_y2/delta_x2);
+					grad_tAB = rad_tAB * 200 / Math.PI;
+					break;
+				default:
+					break;
+				}
+			 
+			document.getElementById('tAB2').value=grad_tAB;
+		}
+		
+		function sABcalc(choise3){ //tAB calculator
+			var xa2=parseFloat(document.getElementById('xa2').value);
+			var ya2=parseFloat(document.getElementById('ya2').value);
+			var xb2=parseFloat(document.getElementById('xb2').value);
+			var yb2=parseFloat(document.getElementById('yb2').value);
+			var grad2rad;
+			//grad2rad = tAB2 * Math.PI / 200;
+			var result_sAB;
+			var delta_y2 = Math.abs(yb2-ya2);
+			var delta_x2 = Math.abs(xb2-xa2);
+			
+			var c=choise3;
+			
+			switch(c)
+				{
+				case 'sAB2':
+					result_sAB = Math.sqrt(delta_y2**2+delta_x2**2)
+					break;
+				default:
+					break;
+				}
+			document.getElementById('sAB2').value=result_sAB;
+		}
+		
+	</script>
+
+	<body>
+		<div style="background-color:#FE2F2F;padding-left:20px;border-style:double;border-color:black;border-width:10px;">
+			<b>Before starting to calculate, you must know variables of computations</b><br>
+			<li>A(xa,ya): Coordinates of point A</li>
+			<li>B(xb,yb): Coordinates of point B</li>
+			<li>SAB: Distance between the points A and B</li>
+			<li>tAB: Azimuth angle of AB line</li>
+			<li>delta_yAB: Distance between the points yA and yB and it can be calculated as yB-yA</li>
+			<li>delta_xAB: Distance between the points xA and xB and it can be calculated as xB-xA</li>
+		</div>
+
+		<div>
+			<h2 style="color:blue;" align="middle" ><i><u>Fundamental Computations</u></i></h2>
+		</div>
+												<!-- FUNDAMENTAL COMPUTATION 1 -->
+		<h3> <u>Fundamental Computation-1</u> </h3>
+		Your known values are <b>A(xA,yA), S_AB and tAB</b> <br>
+		You want to find coordinates of point<b> B(xB,yB)</b> 
+		<br>
+		<br>
+		<table border="1" cellpadding="5" cellspacing="5" width="800" style="background-color:#0045FF;">
+			<tr align="center">
+				<td style="background-color:#FFA461;">Coordinate of xA</td>
+				<td style="background-color:#FFA461;">Coordinate of yA</td>
+				<td style="background-color:#FFA461;">S_AB</td>
+				<td style="background-color:#FFA461;">t_AB</td>
+				<td style="background-color:#FFA461;">Coordinates of point B(xB,yB)</td>
+			</tr>											<!-- FUNDAMENTAL COMPUTATION 1 IS DONE! -->
+			<tr align="center">
+				<td style="background-color:#FFA461;"><input name="xa" type="text" size=10 id='xa'/></td>
+				<td style="background-color:#FFA461;"><input name="ya" type="text" size=10 id='ya'/></td>
+				<td style="background-color:#FFA461;"><input name="SAB" type="text" size=10 id='sAB'/></td>
+				<td style="background-color:#FFA461;"><input name="tAB" type="text" size=10 id='tAB'/></td>
+				<td style="background-color:#FFA461;"> B( <input type="text" id='xB' size=8 readonly >,<input type="text" id='yB' size=8 readonly > )</td>
+			</tr>
+			<tr>
+				<td colspan="5" style="background-color:#FFA461;">
+					<button style="background-color:#00FFE7;" onclick="func1('ptB')" value="text">Calculate coordinates of point B(xB,yB)</button>
+				</td>
+			</tr>
+		</table>
+		<br>
+											<!-- FUNDAMENTAL COMPUTATION 2 -->
+		<h3><u>Fundamental Computation-2</u></h3>
+		Your known values are <b>A(xA,yA), B(xB,yB) so, you also know delta_y and delta_x</b><br>
+		You want to find<b>S_AB and t_AB</b> 
+		<br>
+		<br>
+		<table border="1" cellpadding="5" cellspacing="5" width="800" style="background-color:#0045FF;">
+			<tr align="center">
+				<td style="background-color:#FFA461;">Coordinate of xA</td>
+				<td style="background-color:#FFA461;">Coordinate of yA</td>
+				<td style="background-color:#FFA461;">Coordinate of xB</td>
+				<td style="background-color:#FFA461;">Coordinate of yB</td>
+				<td style="background-color:#FFA461;">tAB</td>
+				<td style="background-color:#FFA461;">sAB</td>
+			</tr>
+			<tr align="center">
+				<td style="background-color:#FFA461;"><input name="xa2" type="text" size=10 id='xa2'/></td>
+				<td style="background-color:#FFA461;"><input name="ya2" type="text" size=10 id='ya2'/></td>
+				<td style="background-color:#FFA461;"><input name="xb2" type="text" size=10 id='xb2'/></td>
+				<td style="background-color:#FFA461;"><input name="yb2" type="text" size=10 id='yb2'/></td>
+				<td style="background-color:#FFA461;"><input name="tAB2" type="text" size=10 id='tAB2'/></td>
+				<td style="background-color:#FFA461;"><input name="sAB2" type="text" size=10 id='sAB2'/></td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background-color:#FFA461;">
+				<button style="background-color:#00FFE7;" onclick="tABcalc('tAB2')" value="text">Calculate tAB</button>
+				<button style="background-color:#00FFE7;" onclick="sABcalc('sAB2')" value="text">Calculate sAB</button>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<!-- FUNDAMENTAL COMPUTATION 3 -->
+		<h3>Fundamental Computation-3</h3>
+
+		<br>
+		<!-- FUNDAMENTAL COMPUTATION 4 -->
+		<h3>Fundamental Computation-4</h3>
+
+
+	</body>
+</html>
