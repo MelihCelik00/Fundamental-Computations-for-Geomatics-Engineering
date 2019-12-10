@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- author: Melih Safa Celik - Assignment for Geomatics Engineering 101 class-->
+<!-- author: Melih Safa Celik - Assignment for Geomatics Engineering 101 Introduction to Information Technologies Class-->
 <html style="background-color:#B0FF01">
 	<title>Term Project</title>
 
 	<head>
-		<h1 id="headbord" align="middle" style="background-color:#848484;border-radius:20px;border-radius:25px;margin-left:200px;margin-right:200px;"> GEO101E CRN: 12301 Introduction to Information Technologies Term Project</h1>
+		<h1 id="headbord" align="middle" style="background-color:#848484;border-radius:20px;border-radius:25px;margin-left:200px;margin-right:200px;"> GEO101E Introduction to Information Technologies Term Project CRN: 12301</h1>
 	</head>
 
 	<script>
@@ -45,15 +45,31 @@
 			var rad_tAB;
 			var grad_tAB;
 			var delta_y2 = Math.abs(yb2-ya2);
-			var delta_x2 = Math.abs(xb2-xa2);
+			var abs_delta_y2 = delta_y2
+			var delta_x2 = xb2-xa2;
+			var abs_delta_x2 = Math.abs(delta_x2)
 			
 			var c=choise2;
 			
 			switch(c)
 				{
 				case 'tAB2':
-					rad_tAB = Math.atan(delta_y2/delta_x2);
+					rad_tAB = Math.atan(abs_delta_y2/abs_delta_x2);
 					grad_tAB = rad_tAB * 200 / Math.PI;
+					
+					if (0 < delta_y2 < 200 && 100 < delta_x2 < 300) //delta y +, delta x -
+					{
+						grad_tAB = 200 - grad_tAB
+					}
+					else if (200 < delta_y2 < 400 && 100 < delta_x2 < 300) //delta y -, delta x -
+					{
+						grad_tAB = 200 + grad_tAB
+					}
+					else if (200 < delta_y2 < 400 && ( 0 < delta_x2 < 100 || 300 < delta_x2 < 400 ))
+					{
+						grad_tAB = 400 - grad_tAB
+					}
+					
 					break;
 				default:
 					break;
@@ -150,8 +166,8 @@
 				<td style="background-color:#FFA461;"><input name="ya2" type="text" size=10 id='ya2'/></td>
 				<td style="background-color:#FFA461;"><input name="xb2" type="text" size=10 id='xb2'/></td>
 				<td style="background-color:#FFA461;"><input name="yb2" type="text" size=10 id='yb2'/></td>
-				<td style="background-color:#FFA461;"><input name="tAB2" type="text" size=10 id='tAB2'/></td>
-				<td style="background-color:#FFA461;"><input name="sAB2" type="text" size=10 id='sAB2'/></td>
+				<td style="background-color:#FFA461;"><input name="tAB2" type="text" size=10 id='tAB2' readonly /></td>
+				<td style="background-color:#FFA461;"><input name="sAB2" type="text" size=10 id='sAB2' readonly /></td>
 			</tr>
 			<tr>
 				<td colspan="6" style="background-color:#FFA461;">
@@ -163,11 +179,38 @@
 		<br>
 		<!-- FUNDAMENTAL COMPUTATION 3 -->
 		<h3>Fundamental Computation-3</h3>
-
+		Your known values are <b>A(xA,yA), B(xB,yB), C(xC,yC)</b><br>
+		You want to find the angle which is <b>tBC-tAB</b>
+		<br>
+		<br>
+		<table border="1" cellpadding="5" cellspacing="5" width="800" style="background-color:#0045FF;">
+			<tr align="center">
+				<td style="background-color:#FFA461;">Coordinate of xA</td>
+				<td style="background-color:#FFA461;">Coordinate of yA</td>
+				<td style="background-color:#FFA461;">Coordinate of xB</td>
+				<td style="background-color:#FFA461;">Coordinate of yB</td>
+				<td style="background-color:#FFA461;">Coordinate of xC</td>
+				<td style="background-color:#FFA461;">Coordinate of yB</td>
+				<td style="background-color:#FFA461;">Bb = tBC - tAB</td>
+			</tr>
+			<tr align="center">
+				<td style="background-color:#FFA461;"><input name="xa3" type="text" size=10 id='xa3'/></td>
+				<td style="background-color:#FFA461;"><input name="ya3" type="text" size=10 id='ya3'/></td>
+				<td style="background-color:#FFA461;"><input name="xb3" type="text" size=10 id='xb3'/></td>
+				<td style="background-color:#FFA461;"><input name="yb3" type="text" size=10 id='yb3'/></td>
+				<td style="background-color:#FFA461;"><input name="yb3" type="text" size=10 id='xc3'/></td>
+				<td style="background-color:#FFA461;"><input name="yb3" type="text" size=10 id='yc3'/></td>
+				<td style="background-color:#FFA461;"><input name="Bb3" type="text" size=20 id='Bb3' readonly /></td>
+			</tr>
+			<tr>
+				<td colspan="7" style="background-color:#FFA461;">
+				<button style="background-color:#00FFE7;" onclick="tABcalc('tAB2')" value="text">Calculate Bb</button>
+				
+				</td>
+			</tr>
+		</table>
 		<br>
 		<!-- FUNDAMENTAL COMPUTATION 4 -->
 		<h3>Fundamental Computation-4</h3>
-
-
 	</body>
 </html>
